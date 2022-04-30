@@ -36,13 +36,6 @@ function pushButtonJoin() {
     $(`#calcInput`).val(currentCalc.join(``));
 }
 
-// removes last button press from currentCalc array on button click
-// joins each element in the currentCalc array into a string and adds it to the DOM
-function deleteSpace() {
-    currentCalc.pop();
-    $(`#calcInput`).val(currentCalc.join(``))
-}
-
 // store value of calcInput on DOM
 // checks if nothing is inside calcInput and shows user an alert that there is nothing input to process
 // runs postEquation if there are no issues
@@ -50,6 +43,10 @@ function checkEquation() {
     let calcInput = $(`#calcInput`).val();
     if (calcInput === ``) {
         return alert(`Nothing to process...`);
+    }
+    let invalidChar = currentCalc.filter(char => !acceptableChar.includes(char))
+    if (invalidChar.length > 0) {
+        alert(`Invalid characters used`)
     }
     postEquation();
 }
@@ -65,12 +62,12 @@ function postEquation() {
     $.ajax({
         method: `POST`,
         url: `/calculate`,
-        data: equation
+        data: equation,
     }).then(response => {
-        console.log(`Valid response back from POST: ${response}`)
+        console.log(`Valid response back from POST: ${response}`);
         getEquation();
     }).catch(response => {
-        alert(`Invalid response back from POST: ${response}`)
+        alert(`Invalid response back from POST: ${response}`);
     })
 }
 
@@ -81,33 +78,40 @@ function postEquation() {
 function getEquation() {
     $.ajax({
         method: `GET`,
-        url: `/calculate`
+        url: `/calculate`,
     }).then(response => {
-        console.log(`Valid response back from GET: ${response}`)
+        console.log(`Valid response back from GET: ${response}`);
         appendAnswer(response);
         appendEquations(response);
     }).catch(response => {
-        alert(`Invalid response back from GET: ${response}`)
+        alert(`Invalid response back from GET: ${response}`);
     })
 }
 
 // clears out the previous calculation in the DOM
 // adds the current GET response answer to the calculation on DOM
 function appendAnswer(response) {
-    let el = $(`#calculation`)
+    let el = $(`#calculation`);
     el.empty();
-    el.append(response.answer)
+    el.append(response.answer);
 }
 
 // clears out the previous calculation log in the DOM
 // adds the current GET response answer to the calculation on DOM
 function appendEquations(response) {
-    let el = $(`#calcLog`)
+    let el = $(`#calcLog`);
     el.empty();
-    let listEquations = response.equations
+    let listEquations = response.equations;
     for (i = 0; i < listEquations.length; i++) {
-        el.append(`<li class="listEquations id="equation${i}">${listEquations[i]}</li>`)
+        el.append(`<li class="listEquations id="equation${i}">${listEquations[i]}</li>`);
     }
+}
+
+// removes last button press from currentCalc array on button click
+// joins each element in the currentCalc array into a string and adds it to the DOM
+function deleteSpace() {
+    currentCalc.pop();
+    $(`#calcInput`).val(currentCalc.join(``));
 }
 
 // clears the calcInput on the DOM

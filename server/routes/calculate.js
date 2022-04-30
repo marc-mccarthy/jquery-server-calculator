@@ -38,10 +38,10 @@ router.post(`/`, (req, res) => {
 // formats the answer to include commas as proper numbers
 // adds answer to the listAnswer array to be used in the GET request
 function evaluateEquation(str) {
-    let answer = mathjs.evaluate(str)
-    let answerFormatted = answer.toLocaleString('en-US')
-    listAnswer.push(answerFormatted)
+    let answer = mathjs.evaluate(str);
+    let answerFormatted = answer.toLocaleString('en-US');
+    listAnswer.push(answerFormatted);
 }
 
 // exports the router to use this route
-module.exports = router
+module.exports = router;
