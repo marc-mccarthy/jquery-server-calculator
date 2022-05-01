@@ -1,3 +1,4 @@
+// calls the first function for page load
 $(document).ready(onReady);
 
 // onReady processes all events on HTML document load
@@ -20,12 +21,16 @@ function onReady() {
     $(`#deleteSpaceButton`).on(`click`, deleteSpace);
     $(`#clearButton`).on(`click`, clearCalcInput);
     $(`#equalsButton`).on(`click`, checkEquation);
+    $(`#clearLogButton`).on(`click`, deleteLog)
+    $(`#calcLog`).on(`click`, `.listEquationsButton`, runEquationAgain)
 }
 
-// TODO array of acceptable inputs on the DOM. Not used yet
+// list of acceptable characters that user can input
 let acceptableChar = [`0`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `+`, `-`, `*`, `/`, `.`];
+
 // array for holding equations
 let allCalc = [];
+
 // array for holding each button press for a single equation entry
 let currentCalc = [];
 
@@ -65,7 +70,7 @@ function postEquation() {
         data: equation,
     }).then(response => {
         console.log(`Valid response back from POST: ${response}`);
-        getEquation();
+        getEquations();
     }).catch(response => {
         alert(`Invalid response back from POST: ${response}`);
     })
@@ -75,7 +80,7 @@ function postEquation() {
 // pass the response into appendAnswer function to get answer *or*
 // pass the response into appendEquations function to get all previous equations *or*
 // send alert to user if GET request fails
-function getEquation() {
+function getEquations() {
     $.ajax({
         method: `GET`,
         url: `/calculate`,
@@ -86,6 +91,11 @@ function getEquation() {
     }).catch(response => {
         alert(`Invalid response back from GET: ${response}`);
     })
+}
+
+function runEquationAgain() {
+    console.log(`This is running: ${$(this).val()}`)
+    console.log($(this).data(`id`))
 }
 
 // clears out the previous calculation in the DOM
@@ -103,8 +113,25 @@ function appendEquations(response) {
     el.empty();
     let listEquations = response.equations;
     for (i = 0; i < listEquations.length; i++) {
-        el.append(`<li class="listEquations id="equation${i}">${listEquations[i]}</li>`);
+        el.append(`<li class="listEquations" id="equationItem${i}"><button class="listEquationsButton" id="equationButton${i}" data-id="${i}">${listEquations[i]}</button></li>`);
     }
+}
+
+// create DELETE request that deletes the calculation history on the server
+// clear out the calcLog to delete the history
+// send alert to user if DELETE request fails
+function deleteLog() {
+    $.ajax({
+        method: `DELETE`,
+        url: `/calculate`,
+    }).then(response => {
+        console.log(`Valid response back from DELETE: ${response}`);
+        let el = $(`#calcLog`);
+        el.empty();
+        el.append(response);
+    }).catch(response => {
+        alert(`Invalid response back from DELETE: ${response}`);
+    })
 }
 
 // removes last button press from currentCalc array on button click

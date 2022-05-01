@@ -34,6 +34,12 @@ router.post(`/`, (req, res) => {
     res.sendStatus(200);
 })
 
+router.delete(`/`, (req, res) => {
+    console.log(`/calculate DELETE`);
+    listEquations = [];
+    res.send(listEquations);
+})
+
 // evaluates the equation using the Math JS node module
 // formats the answer to include commas as proper numbers
 // adds answer to the listAnswer array to be used in the GET request
