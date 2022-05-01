@@ -49,9 +49,9 @@ function checkEquation() {
     if (calcInput === ``) {
         return alert(`Nothing to process...`);
     }
-    let invalidChar = currentCalc.filter(char => !acceptableChar.includes(char))
+    let invalidChar = currentCalc.filter(char => !acceptableChar.includes(char));
     if (invalidChar.length > 0) {
-        alert(`Invalid characters used`)
+        alert(`Invalid characters used`);
     }
     postEquation();
 }
@@ -93,9 +93,24 @@ function getEquations() {
     })
 }
 
+// create equation object
+// create POST request that sends data-text from the item clicked
+// run getEquation function after request is completed *or*
+// send alert to user if POST request fails
 function runEquationAgain() {
-    console.log(`This is running: ${$(this).val()}`)
-    console.log($(this).data(`id`))
+    let equation = {
+        name: $(this).data(`text`),
+    }
+    $.ajax({
+        method: `POST`,
+        url: `/calculate`,
+        data: equation,
+    }).then(respose => {
+        console.log(`Valid response back from POST: ${respose}`);
+        getEquations();
+    }).catch(response => {
+        alert(`Invalid response back from POST: ${response}`);
+    })
 }
 
 // clears out the previous calculation in the DOM
@@ -113,7 +128,7 @@ function appendEquations(response) {
     el.empty();
     let listEquations = response.equations;
     for (i = 0; i < listEquations.length; i++) {
-        el.append(`<li class="listEquations" id="equationItem${i}"><button class="listEquationsButton" id="equationButton${i}" data-id="${i}">${listEquations[i]}</button></li>`);
+        el.append(`<li class="listEquations" id="equationItem${i}"><button class="listEquationsButton" id="equationButton${i}" data-id="${i}" data-text="${listEquations[i]}">${listEquations[i]}</button></li>`);
     }
 }
 
