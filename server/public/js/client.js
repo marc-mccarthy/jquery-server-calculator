@@ -49,27 +49,44 @@ function checkEquation() {
     if (calcInput === ``) {
         return alert(`Nothing to process...`);
     }
+    if (calcInput[0] === `/` || calcInput[0] === `*`) {
+        return alert(`Can't start with that character`)
+    }
     let invalidChar = currentCalc.filter(char => !acceptableChar.includes(char));
     if (invalidChar.length > 0) {
-        alert(`Invalid characters used`);
+        return alert(`Invalid characters used`);
     }
-    postEquation();
+    postEquation(calcInput);
 }
 
 // create equation object
 // create POST request that sends the equation object
 // run getEquation function after request is completed *or*
 // send alert to user if POST request fails
-function postEquation() {
-    let equation = {
-        name: $(`#calcInput`).val(),
-    }
+function postEquation(calcInput) {
     $.ajax({
         method: `POST`,
         url: `/calculate`,
-        data: equation,
+        data: {input: calcInput}
     }).then(response => {
         console.log(`Valid response back from POST: ${response}`);
+        getEquations();
+    }).catch(response => {
+        return alert(`Invalid response back from POST: ${response}`);
+    })
+}
+
+// create equation object
+// create POST request that sends data-text from the item clicked
+// run getEquation function after request is completed *or*
+// send alert to user if POST request fails
+function runEquationAgain() {
+    $.ajax({
+        method: `POST`,
+        url: `/calculate`,
+        data: {input: $(this).data(`text`)}
+    }).then(respose => {
+        console.log(`Valid response back from POST: ${respose}`);
         getEquations();
     }).catch(response => {
         alert(`Invalid response back from POST: ${response}`);
@@ -89,27 +106,24 @@ function getEquations() {
         appendAnswer(response);
         appendEquations(response);
     }).catch(response => {
-        alert(`Invalid response back from GET: ${response}`);
+        return alert(`Invalid response back from GET: ${response}`);
     })
 }
 
-// create equation object
-// create POST request that sends data-text from the item clicked
-// run getEquation function after request is completed *or*
-// send alert to user if POST request fails
-function runEquationAgain() {
-    let equation = {
-        name: $(this).data(`text`),
-    }
+// create DELETE request that deletes the calculation history on the server
+// clear out the calcLog to delete the history
+// send alert to user if DELETE request fails
+function deleteLog() {
     $.ajax({
-        method: `POST`,
+        method: `DELETE`,
         url: `/calculate`,
-        data: equation,
-    }).then(respose => {
-        console.log(`Valid response back from POST: ${respose}`);
-        getEquations();
+    }).then(response => {
+        console.log(`Valid response back from DELETE: ${response}`);
+        let el = $(`#calcLog`);
+        el.empty();
+        el.append(response);
     }).catch(response => {
-        alert(`Invalid response back from POST: ${response}`);
+        alert(`Invalid response back from DELETE: ${response}`);
     })
 }
 
@@ -130,23 +144,6 @@ function appendEquations(response) {
     for (i = 0; i < listEquations.length; i++) {
         el.append(`<li class="listEquations" id="equationItem${i}"><button class="listEquationsButton" id="equationButton${i}" data-id="${i}" data-text="${listEquations[i]}">${listEquations[i]}</button></li>`);
     }
-}
-
-// create DELETE request that deletes the calculation history on the server
-// clear out the calcLog to delete the history
-// send alert to user if DELETE request fails
-function deleteLog() {
-    $.ajax({
-        method: `DELETE`,
-        url: `/calculate`,
-    }).then(response => {
-        console.log(`Valid response back from DELETE: ${response}`);
-        let el = $(`#calcLog`);
-        el.empty();
-        el.append(response);
-    }).catch(response => {
-        alert(`Invalid response back from DELETE: ${response}`);
-    })
 }
 
 // removes last button press from currentCalc array on button click
