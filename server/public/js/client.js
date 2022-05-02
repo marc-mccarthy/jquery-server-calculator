@@ -21,8 +21,8 @@ function onReady() {
     $(`#deleteSpaceButton`).on(`click`, deleteSpace);
     $(`#clearButton`).on(`click`, clearCalcInput);
     $(`#equalsButton`).on(`click`, checkEquation);
-    $(`#clearLogButton`).on(`click`, deleteLog)
-    $(`#calcLog`).on(`click`, `.listEquationsButton`, runEquationAgain)
+    $(`#clearLogButton`).on(`click`, deleteLog);
+    $(`#calcLog`).on(`click`, `.listEquationsButton`, runEquationAgain);
 }
 
 // list of acceptable characters that user can input
@@ -46,11 +46,12 @@ function pushButtonJoin() {
 // runs postEquation if there are no issues
 function checkEquation() {
     let calcInput = $(`#calcInput`).val();
+    clearCalcInput();
     if (calcInput === ``) {
         return alert(`Nothing to process...`);
     }
     if (calcInput[0] === `/` || calcInput[0] === `*`) {
-        return alert(`Can't start with that character`)
+        return alert(`Can't start with that character`);
     }
     let invalidChar = currentCalc.filter(char => !acceptableChar.includes(char));
     if (invalidChar.length > 0) {
@@ -100,7 +101,7 @@ function runEquationAgain() {
 function getEquations() {
     $.ajax({
         method: `GET`,
-        url: `/calculate`,
+        url: `/calculate`
     }).then(response => {
         console.log(`Valid response back from GET: ${response}`);
         appendAnswer(response);
@@ -116,7 +117,7 @@ function getEquations() {
 function deleteLog() {
     $.ajax({
         method: `DELETE`,
-        url: `/calculate`,
+        url: `/calculate`
     }).then(response => {
         console.log(`Valid response back from DELETE: ${response}`);
         let el = $(`#calcLog`);
@@ -132,7 +133,7 @@ function deleteLog() {
 function appendAnswer(response) {
     let el = $(`#calculation`);
     el.empty();
-    el.append(response.answer);
+    el.append(`boop beep: <br> ${response.answer}`);
 }
 
 // clears out the previous calculation log in the DOM
@@ -153,7 +154,7 @@ function deleteSpace() {
     $(`#calcInput`).val(currentCalc.join(``));
 }
 
-// clears the calcInput on the DOM
+// clears the calcInput on the DOM when run
 // clears currentCalc input so it doesn't reappear on the DOM at the start of a new equation
 function clearCalcInput() {
     $(`#calcInput`).val(``);

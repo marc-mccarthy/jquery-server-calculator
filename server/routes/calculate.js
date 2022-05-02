@@ -18,9 +18,8 @@ let theAnswer = [];
 // sends an 'ok' status for a valid request
 router.post(`/`, (req, res) => {
     console.log(`POST to route /calculate: Equation sent to server is ${req.body.input}`);
-    listEquations.push(req.body.input);
     let answer = evaluateEquation(req.body.input);
-    theAnswer.push(answer)
+    theAnswer.push(answer);
     res.sendStatus(200);
 })
 
@@ -30,7 +29,7 @@ router.get(`/`, (req, res) => {
     console.log(`GET to route /calculate: Data pulled from the server is ${req.body}`);
     res.send({
         equations: listEquations,
-        answer: theAnswer[0],
+        answer: theAnswer[0]
     })
     theAnswer = [];
 })
@@ -43,10 +42,11 @@ router.delete(`/`, (req, res) => {
     res.send(listEquations);
 })
 
-/*
+
 // evaluates the equation using the Math JS node module
 // formats the answer to include commas as proper numbers
 // adds answer to the listAnswer array to be used in the GET request
+/*
 function evaluateEquation(str) {
     let answer = mathjs.evaluate(str);
     let answerFormatted = answer.toLocaleString('en-US');
@@ -54,27 +54,63 @@ function evaluateEquation(str) {
 }
 */
 
+// if the first character is a `+`, eliminate it from the string
+// if the first character is a `-`, eliminate it from the string and add it after conversion to a number
+// unary operator `+` will allow second number to be negative
 // runs a loop through the string at each character
 // determine if they have operators in them
-// split the string b the operator so there are two array values
-// evaluate the array values by using the operator between them and converting them to numbers
+// split the string with the operator value so there are two arrays
+// sends the equations to the log in a spaced string
+// evaluate the array values by using the operator between them and converts them to formatted numbers
 function evaluateEquation(string) {
+    if (string[0] === `+`) {
+        string = string.replace(`+`, ``);
+    }
+    if (string[0] === `-`) {
+        string = string.replace(`-`, ``);
+        for (let i = 1; i < string.length; i++) {
+            if (string[i] === `+`) {
+                let array = string.split(`+`);
+                listEquations.push(`${Number(-array[0])} + ${Number(+array[1])}`);
+                return (Number(-array[0]) + Number(+array[1])).toLocaleString(`en-US`);
+            }
+            if (string[i] === `-`) {
+                let array = string.split(`-`);
+                listEquations.push(`${Number(-array[0])} - ${Number(+array[1])}`);
+                return (Number(-array[0]) - Number(+array[1])).toLocaleString(`en-US`);
+            }
+            if (string[i] === `*`) {
+                let array = string.split(`*`);
+                listEquations.push(`${Number(-array[0])} * ${Number(+array[1])}`);
+                return (Number(-array[0]) * Number(+array[1])).toLocaleString(`en-US`);
+            }
+            if (string[i] === `/`) {
+                let array = string.split(`/`);
+                listEquations.push(`${Number(-array[0])} / ${Number(+array[1])}`);
+                return (Number(-array[0]) / Number(+array[1])).toLocaleString(`en-US`);
+            }
+        }
+    }
     for (let i = 0; i < string.length; i++) {
-        if (string[i] === '+') {
-            let array = string.split('+')
-            return Number(array[0]) + Number(array.splice(-1))
+        if (string[i] === `+`) {
+            let array = string.split(`+`);
+            listEquations.push(`${Number(array[0])} + ${Number(array[1])}`);
+            return (Number(array[0]) + Number(array[1])).toLocaleString(`en-US`);
         }
-        if (string[i] === '-') {
-            let array = string.split('-')
-            return Number(array[0]) - Number(array.splice(-1))
+        if (string[i] === `-`) {
+            let array = string.split(`-`);
+            listEquations.push(`${Number(array[0])} - ${Number(array[1])}`);
+            return (Number(array[0]) - Number(array[1])).toLocaleString(`en-US`);
         }
-        if (string[i] === '*') {
-            let array = string.split('*')
-            return Number(array[0]) * Number(array.splice(-1))
+        if (string[i] === `*`) {
+            let array = string.split(`*`);
+            listEquations.push(`${Number(array[0])} * ${Number(array[1])}`);
+            return (Number(array[0]) * Number(array[1])).toLocaleString(`en-US`);
         }
-        if (string[i] === '/') {
-            let array = string.split('/')
-            return Number(array[0]) / Number(array.splice(-1))
+        if (string[i] === `/`) {
+            let array = string.split(`/`);
+            listEquations.push(`${Number(array[0])} / ${Number(array[1])}`);
+            return (Number(array[0]) / Number(array[1])).toLocaleString(`en-US`);
         }
     }
 }

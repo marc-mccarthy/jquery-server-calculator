@@ -2,8 +2,49 @@ body {
     background-color: lightsteelblue;
 }
 
+#calcInput {
+    font-size: 30px;
+    width: 240px;
+    height: 35px;
+    margin-bottom: 20px;
+}
+
+.grid-container {
+    font-size: 30px;
+    display: grid;
+    grid-template-columns: 60px 60px 60px 60px;
+    grid-template-rows: 50px 50px 50px 50px 50px 50px;
+}
+
+.grid-item {
+    font-size: 30px;
+}
+
+#clearButton {
+    background-color: orange;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+#deleteSpaceButton {
+    background-color: lightblue;
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
+
+#clearLogButton {
+    background-color: lightgreen;
+    font-size: 30px;
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+
+#calculation {
+    font-size: 35px;
+}
+
 .listEquationsButton {
-    font-size: 18px;
+    font-size: 25px;
     border: none;
     background-color: transparent;
     font-family: inherit;
