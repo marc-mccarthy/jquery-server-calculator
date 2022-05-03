@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 const calculate = require(`./routes/calculate`);
 
 // current server port number
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // sets this route as the default route for Express to serve files
 app.use(express.static(`./server/public`));
