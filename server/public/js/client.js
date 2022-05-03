@@ -3,6 +3,7 @@ $(document).ready(onReady);
 
 // onReady processes all events on HTML document load
 function onReady() {
+    getEquationsPageLoad();
     $(`#0Button`).on(`click`, pushButtonJoin);
     $(`#1Button`).on(`click`, pushButtonJoin);
     $(`#2Button`).on(`click`, pushButtonJoin);
@@ -50,7 +51,7 @@ function checkEquation() {
     if (calcInput === ``) {
         return alert(`Nothing to process...`);
     }
-    if (calcInput[0] === `/` || calcInput[0] === `*`) {
+    if (calcInput[0] === `+` || calcInput[0] === `/` || calcInput[0] === `*`) {
         return alert(`Can't start with that character`);
     }
     let invalidChar = currentCalc.filter(char => !acceptableChar.includes(char));
@@ -86,8 +87,8 @@ function runEquationAgain() {
         method: `POST`,
         url: `/calculate`,
         data: {input: $(this).data(`text`)}
-    }).then(respose => {
-        console.log(`Valid response back from POST: ${respose}`);
+    }).then(response => {
+        console.log(`Valid response back from POST: ${response}`);
         getEquations();
     }).catch(response => {
         alert(`Invalid response back from POST: ${response}`);
@@ -105,6 +106,22 @@ function getEquations() {
     }).then(response => {
         console.log(`Valid response back from GET: ${response}`);
         appendAnswer(response);
+        appendEquations(response);
+    }).catch(response => {
+        return alert(`Invalid response back from GET: ${response}`);
+    })
+}
+
+// create GET request that receives the response from the server
+// pass the response into appendAnswer function to get answer *or*
+// pass the response into appendEquations function to get all previous equations *or*
+// send alert to user if GET request fails
+function getEquationsPageLoad() {
+    $.ajax({
+        method: `GET`,
+        url: `/calculate/pageLoad`
+    }).then(response => {
+        console.log(`Valid response back from GET: ${response}`);
         appendEquations(response);
     }).catch(response => {
         return alert(`Invalid response back from GET: ${response}`);
@@ -133,7 +150,7 @@ function deleteLog() {
 function appendAnswer(response) {
     let el = $(`#calculation`);
     el.empty();
-    el.append(`boop beep: <br> ${response.answer}`);
+    el.append(`beep boop: <br> ${response.answer}`);
 }
 
 // clears out the previous calculation log in the DOM
