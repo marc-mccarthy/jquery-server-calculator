@@ -1,9 +1,6 @@
-# Weekend Jquery Server Calculator
-
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
-
+# Jquery Server Calculator
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
+This here is a single expression/operator calculator. This calculator allows you to save a log of all run calculations until the server is restarted. It does not take multiple operators and will throw an error as of now for those inputs.
 
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
+Future updates will take all multiple numerical characters/operators and evaluate them properly.
