@@ -150,7 +150,7 @@ function deleteLog() {
 function appendAnswer(response) {
     let el = $(`#calculation`);
     el.empty();
-    el.append(`beep boop: <br> ${response.answer}`);
+    el.append(`beep boop:  ${response.answer}`);
 }
 
 // clears out the previous calculation log in the DOM
@@ -160,7 +160,7 @@ function appendEquations(response) {
     el.empty();
     let listEquations = response.equations;
     for (i = 0; i < listEquations.length; i++) {
-        el.append(`<li class="listEquations" id="equationItem${i}"><button class="listEquationsButton" id="equationButton${i}" data-id="${i}" data-text="${listEquations[i]}">${listEquations[i]}</button></li>`);
+        el.append(`<li class="listEquations" id="equationItem${i}"><span><button class="listEquationsButton" id="equationButton${i}" data-id="${i}" data-text="${listEquations[i]}">${listEquations[i]}</button></span></li>`);
     }
 }
 

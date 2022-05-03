@@ -1,5 +1,30 @@
 body {
-    background-color: lightsteelblue;
+    color: white;
+    background-image: url("../images/pencil-ruler.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+h1 {
+    text-align: center;
+}
+
+.flexContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.flexItem {
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10%;
+	overflow: hidden;
+}
+
+#divCalculation, #divInputs {
+    font-size: 20px;
+    text-align: center;
 }
 
 #calcInput {
@@ -16,8 +41,27 @@ body {
     grid-template-rows: 50px 50px 50px 50px 50px 50px;
 }
 
+#calcLog {
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+ul {
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}
+
+li {
+    list-style-type: none;
+}
+
 .grid-item {
     font-size: 30px;
+}
+
+.listEquationsButton {
+    color: white;
 }
 
 #clearButton {
@@ -37,10 +81,6 @@ body {
     font-size: 30px;
     grid-column-start: 1;
     grid-column-end: 5;
-}
-
-#calculation {
-    font-size: 35px;
 }
 
 .listEquationsButton {

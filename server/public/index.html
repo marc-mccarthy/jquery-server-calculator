@@ -10,37 +10,43 @@
     <title>JQuery Server Calculator</title>
 </head>
 <body>
-    <h1>Server Side Calculator</h1>
-    <div id="divInputs">
-        <input id="calcInput" type="text">
-        
-    </div>
-    <div class="grid-container" id="divCalcButtons">
-        <button class="grid-item" id="clearButton">C</button>
-        <button class="grid-item" id="deleteSpaceButton">Del</button>
-        <button class="grid-item" id="0Button" value="0">0</button>
-        <button class="grid-item" id="1Button" value="1">1</button>
-        <button class="grid-item" id="2Button" value="2">2</button>
-        <button class="grid-item" id="3Button" value="3">3</button>
-        <button class="grid-item" id="4Button" value="4">4</button>
-        <button class="grid-item" id="5Button" value="5">5</button>
-        <button class="grid-item" id="6Button" value="6">6</button>
-        <button class="grid-item" id="7Button" value="7">7</button>
-        <button class="grid-item" id="8Button" value="8">8</button>
-        <button class="grid-item" id="9Button" value="9">9</button>
-        <button class="grid-item" id="plusButton" value="+">+</button>
-        <button class="grid-item" id="minusButton" value="-">-</button>
-        <button class="grid-item" id="multiplicationButton" value="*">*</button>
-        <button class="grid-item" id="divisionButton" value="/">/</button>
-        <button class="grid-item" id="periodButton" value=".">.</button>
-        <button class="grid-item" id="equalsButton" value="=">=</button>
-        <button class="grid-item" id="clearLogButton">Clear Log</button>
-    </div>
+    <h1>Just A Calculator</h1>
     <div id="divCalculation">
-        <h2 id="calculation"></h2>
+        <h2 id="calculation">bee boop: 0</h2>
     </div>
-    <div id="divLog">
-        <ul id="calcLog"></ul>
+    <div class="flexContainer">
+        <div class="flexItem" id="flexItem1">
+            <div id="divInputs">
+                <input id="calcInput" type="text">
+            </div>
+            <div class="grid-container" id="divCalcButtons">
+                <button class="grid-item" id="clearButton">C</button>
+                <button class="grid-item" id="deleteSpaceButton">Del</button>
+                <button class="grid-item" id="0Button" value="0">0</button>
+                <button class="grid-item" id="1Button" value="1">1</button>
+                <button class="grid-item" id="2Button" value="2">2</button>
+                <button class="grid-item" id="3Button" value="3">3</button>
+                <button class="grid-item" id="4Button" value="4">4</button>
+                <button class="grid-item" id="5Button" value="5">5</button>
+                <button class="grid-item" id="6Button" value="6">6</button>
+                <button class="grid-item" id="7Button" value="7">7</button>
+                <button class="grid-item" id="8Button" value="8">8</button>
+                <button class="grid-item" id="9Button" value="9">9</button>
+                <button class="grid-item" id="plusButton" value="+">+</button>
+                <button class="grid-item" id="minusButton" value="-">-</button>
+                <button class="grid-item" id="multiplicationButton" value="*">*</button>
+                <button class="grid-item" id="divisionButton" value="/">/</button>
+                <button class="grid-item" id="periodButton" value=".">.</button>
+                <button class="grid-item" id="equalsButton" value="=">=</button>
+                <button class="grid-item" id="clearLogButton">Clear Log</button>
+            </div>
+        </div>
+        <div class="flexItem" id="flexItem2">
+            <h2>Answer Log</h2>
+            <div id="divLog">
+                <ul id="calcLog"></ul>
+            </div>
+        </div>
     </div>
 </body>
 </html>
