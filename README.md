@@ -16,6 +16,6 @@ JavaScript, CSS, HTML, and Markdown demonstrated.
 
 This is built using Node.js with Express, Nodemon, and jQuery utilized.
 
-## Future Installments
+## Future Updates
 
 Future updates will take all multiple numerical characters/operators as a string and evaluate them properly using Math.js.
