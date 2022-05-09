@@ -6,7 +6,7 @@ This here is a single expression/operator calculator. This calculator allows you
 
 ## Interface
 
-![screenshot](./server/public/images/screenshot.png)
+![wireframe](./server/public/images/wireframe.png)
 
 ## Languages
 
