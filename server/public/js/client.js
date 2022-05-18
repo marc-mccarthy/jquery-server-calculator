@@ -159,7 +159,9 @@ function appendEquations(response) {
     let el = $(`#calcLog`);
     el.empty();
     let listEquations = response.equations;
+    console.log(listEquations[0])
     for (i = 0; i < listEquations.length; i++) {
+        console.log('me')
         el.append(`<li class="listEquations" id="equationItem${i}"><span><button class="listEquationsButton" id="equationButton${i}" data-id="${i}" data-text="${listEquations[i]}">${listEquations[i]}</button></span></li>`);
     }
 }

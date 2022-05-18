@@ -1,8 +1,12 @@
-# Jquery Server Calculator
+# Jquery Calculator
+
+## Heroku Link
+
+[Jquery Calculator](https://jquery-calculator-1.herokuapp.com/)
 
 ## Description
 
-This here is a single expression/operator calculator. This calculator allows you to save a log of all run calculations until the server is restarted. It does not take multiple operators and will throw an error for those inputs.
+This is a simple calculator. This calculator allows you to save a log of all run calculations until the server is restarted. It takes multiple operators.
 
 ## Interface
 
@@ -14,8 +18,8 @@ JavaScript, CSS, HTML, and Markdown demonstrated.
 
 ## Packages
 
-This is built using Node.js with Express, Nodemon, and jQuery utilized.
+This is built using Node.js with Express, Nodemon, MathJS, and jQuery utilized.
 
 ## Future Updates
 
-Future updates will take all multiple numerical characters/operators as a string and evaluate them properly using Math.js.
+No future updates planned.
